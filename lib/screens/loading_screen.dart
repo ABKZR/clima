@@ -8,11 +8,17 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
-
+var locationMessage="";
   void getLocation() async{
-   LocationPermission permission = await Geolocator.checkPermission();
+   //LocationPermission permission = await Geolocator.checkPermission();
    //  LocationPermission permission = await Geolocator.requestPermission();
-    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    var position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    //var lastPosition = await Geolocator().getLastKnownPosition();
+  print(position);
+
+  setState(() {
+    locationMessage = "$position.latitude, $position.position.longitude";
+  });
   }
   @override
   Widget build(BuildContext context) {
@@ -26,7 +32,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
           onPressed: () {
             getLocation();
           },
-          child: Text('Get Location'),
+          child: Text(locationMessage),
         ),
       ),
     );
