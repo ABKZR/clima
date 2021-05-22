@@ -10,8 +10,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 var locationMessage="";
   void getLocation() async{
     Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    var lastPosition = await Geolocator().getLastKnownPosition();
-  print(lastPosition);
+    print(position);
   setState(() {
     locationMessage = "$position.latitude, $position.position.longitude";
   });
