@@ -7,9 +7,14 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
+  @override
+  void initState() {
+    super.initState();
+    getLocation();
+  }
 var locationMessage="";
   void getLocation() async{
-    Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
     print(position);
   setState(() {
     locationMessage = "$position.latitude, $position.position.longitude";
@@ -18,23 +23,6 @@ var locationMessage="";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          TextButton(
-            style: TextButton.styleFrom(
-              backgroundColor: Colors.blueAccent,
-              primary: Colors.white,
-            ),
-            onPressed: () {
-              getLocation();
-            },
-          child: Text("Get Location"),
-          ),
-          Text("Position: $locationMessage"),
-        ],
-      ),
     );
   }
 }
