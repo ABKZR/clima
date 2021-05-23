@@ -12,13 +12,13 @@ class _LoadingScreenState extends State<LoadingScreen> {
     super.initState();
     getLocation();
   }
-var locationMessage="";
+//var locationMessage="";
   void getLocation() async{
     Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
     print(position);
-  setState(() {
-    locationMessage = "$position.latitude, $position.position.longitude";
-  });
+  // setState(() {
+  //   locationMessage = "$position.latitude, $position.position.longitude";
+  // });
   }
   @override
   Widget build(BuildContext context) {
