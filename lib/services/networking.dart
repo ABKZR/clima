@@ -10,7 +10,7 @@ class NetworkHelper {
       String data = response.body;
       return jsonDecode(data);
     } else {
-      print(response.statusCode);
+      print('hello ${response.statusCode}');
     }
   }
 }

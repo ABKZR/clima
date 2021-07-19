@@ -12,49 +12,35 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
-  double latitude;
-  double longitude;
-  // @override
-  // void initState()  { 
-  //   Future.delayed(Duration.zero).then((value) => getLocationData());
-  //   super.initState();
-  
-  // }
+
   @override
-  void didChangeDependencies() {
+  void initState() {
+    super.initState();
     getLocationData();
-    super.didChangeDependencies();
-    
   }
-  void getLocationData() async {
-     Uri url = Uri.parse(
-        'http://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey');
-    Location location = Location();
-    await location.getCorrentLocation();
-    latitude = (location.latitude);
-    longitude = (location.longitude);
+ Future<void> getLocationData() async {
   
+  Location location = Location();
+    await location.getCorrentLocation();
+    Uri url = Uri.parse(
+        'http://api.openweathermap.org/data/2.5/weather?lat=${location.latitude}&lon=${location.longitude}&appid=$apiKey&units=metric');
     NetworkHelper networkHelper = NetworkHelper(url);
     var weatherData = await networkHelper.getData();
-if(weatherData != null){
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) =>
-                LocationScreen(weatherLocation: weatherData)));
-  }
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  LocationScreen(weatherLocation: weatherData)));
+    
   }
 
   @override
   Widget build(BuildContext context) {
-   getLocationData();
     return Scaffold(
-      
       body: Center(
         child: SpinKitDoubleBounce(
           color: Colors.white,
-          size: 100,
-          
+          size: 50,
         ),
       ),
     );
